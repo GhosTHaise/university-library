@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description: "BookWise is a platform that helps you find and borrow university books.",
 };
 
-export const  RootLayout = ({
+const RootLayout = ({
   children,
 }: {
   children: ReactNode;
@@ -39,3 +39,5 @@ export const  RootLayout = ({
     </html>
   );
 }
+
+export default RootLayout;
