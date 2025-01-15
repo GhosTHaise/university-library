@@ -9,7 +9,7 @@ declare interface Book {
     description: string;
     color: string;
     coverUrl: string;
-    video : string;
+    videoUrl : string;
     summary : string;
-    iaLoanedBook? : boolean;
+    isLoanedBook? : boolean;
 }
