@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react'
+import BookCoverSvg from './bookCoverSvg';
 
 type BookCoverVariant = "extraSmall" | "small" | "medium" | "regular" | "wide" ;
 
@@ -24,7 +25,7 @@ const BookCover = ({
 } : BookCoverProps) => {
   return (
     <div className={cn('relative transition-all duration-300', variantsStyles[variant], className)}>
-        BOOK SIDE SVG
+        <BookCoverSvg coverColor={coverColor} />
 
         <div className='absolute z-10 left-[12%] w-[87.5%] h-[88%]'>
             <Image src={coverImage} alt='Book cover' fill className='rounded-sm object-fill' />
