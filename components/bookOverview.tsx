@@ -4,7 +4,7 @@ import { Button } from './ui/button'
 import BookCover from './bookCover'
 
 const BookOverview = ({
-  title, author, genre, rating, totalCopies, availableCopies, description, color, coverUrl
+  title, author, genre, rating, totalCopies, availableCopies, description, coverColor, coverUrl
 }: Book) => {
   return (
     <section className='book-overview'>
@@ -60,7 +60,7 @@ const BookOverview = ({
           <BookCover
             variant="wide"
             className="z-10"
-            coverColor={color}
+            coverColor={coverColor}
             coverImage={coverUrl}
           />
 
@@ -68,7 +68,7 @@ const BookOverview = ({
             <BookCover
               variant="wide"
               className="z-10"
-              coverColor={color}
+              coverColor={coverColor}
               coverImage={coverUrl}
             />
           </div>
