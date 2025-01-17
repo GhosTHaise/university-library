@@ -15,7 +15,8 @@ import {
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import Link from 'next/link'
-import { FIELD_NAMES } from '@/constants'
+import { FIELD_NAMES, FIELD_TYPES } from '@/constants'
+import ImageUpload from './imageUpload'
 
 interface AuthFormProps<T extends FieldValues> {
     schema: ZodType<T>,
@@ -61,7 +62,12 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
                                     <FormItem>
                                         <FormLabel className='capitalize'>{FIELD_NAMES[field.name as keyof typeof FIELD_NAMES] }</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="shadcn" {...field} />
+                                           {
+                                            field.name === "universityCard" 
+                                            ? <ImageUpload /> 
+                                            :  
+                                            <Input required placeholder="shadcn" type={FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]} {...field} /> 
+                                           }
                                         </FormControl>
                                         <FormDescription>
                                             This is your public display name.
