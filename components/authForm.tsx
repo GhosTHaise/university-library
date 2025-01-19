@@ -60,25 +60,28 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
                                 name={field as Path<T>}
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className='capitalize'>{FIELD_NAMES[field.name as keyof typeof FIELD_NAMES] }</FormLabel>
+                                        <FormLabel className='capitalize'>{FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}</FormLabel>
                                         <FormControl>
-                                           {
-                                            field.name === "universityCard" 
-                                            ? <ImageUpload /> 
-                                            :  
-                                            <Input required placeholder="shadcn" type={FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]} {...field} /> 
-                                           }
+                                            {
+                                                field.name === "universityCard"
+                                                    ? <ImageUpload />
+                                                    :
+                                                    <Input
+                                                        required
+                                                        placeholder="shadcn"
+                                                        type={FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]} 
+                                                        {...field}
+                                                        className='form-input'
+                                                        />
+                                            }
                                         </FormControl>
-                                        <FormDescription>
-                                            This is your public display name.
-                                        </FormDescription>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
                         ))
                     }
-                    <Button type="submit">Submit</Button>
+                    <Button className='form-btn' type="submit">{isSignIn ? "Sign In" : "Sign Up"}</Button>
                 </form>
             </Form>
 
