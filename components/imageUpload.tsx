@@ -1,5 +1,6 @@
 "use client";
 
+import { useToast } from "@/hooks/use-toast";
 import config from "@/lib/config";
 import { IKImage, ImageKitProvider, IKUpload } from "imagekitio-next";
 import Image from "next/image";
@@ -7,7 +8,7 @@ import { useRef, useState } from "react";
 
 const authentificator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`,)
+    const response = await fetch(`${config.env.apiEndpoint}/auth/imagekit`,)
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -25,12 +26,27 @@ const authentificator = async () => {
 }
 const { env: { imagekit: { publicKey, urlEndpoint } } } = config;
 
-const ImageUpload = () => {
+const ImageUpload = ({onFileChange} : {onFileChange : (filePath : string) => void}) => {
+  const { toast } = useToast()
   const ikUploadRef = useRef(null);
   const [file, setFile] = useState<{filePath : string} | null>();
 
-  const onError = () => {}
-  const onSuccess = () => {}
+  const onError = (error : any) => {
+    console.log(error);toast({
+      title : "Image uploaded failed",
+      description : `Your image could not be uploaded. Please tye again.`,
+      variant : "destructive"
+    })
+  }
+  const onSuccess = (res : any) => {
+    setFile(res);
+    onFileChange(res.filePath);
+
+    toast({
+      title : "Image uploaded successfully",
+      description : `${res.filePath} uploaded successfully!`,
+    })
+  }
 
   return (
     <ImageKitProvider publicKey={publicKey} urlEndpoint={urlEndpoint} authenticator={authentificator}>
