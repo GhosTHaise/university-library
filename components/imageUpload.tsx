@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 
 const authentificator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`,)
+    const response = await fetch(`${config.env.apiEndpoint}/auth/imagekit`,)
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -25,12 +25,17 @@ const authentificator = async () => {
 }
 const { env: { imagekit: { publicKey, urlEndpoint } } } = config;
 
-const ImageUpload = () => {
+const ImageUpload = ({onFileChange} : {onFileChange : (filePath : string) => void}) => {
   const ikUploadRef = useRef(null);
   const [file, setFile] = useState<{filePath : string} | null>();
 
-  const onError = () => {}
-  const onSuccess = () => {}
+  const onError = (error : any) => {
+    console.log(error);
+  }
+  const onSuccess = (res : any) => {
+    setFile(res);
+    onFileChange(res.filePath);
+  }
 
   return (
     <ImageKitProvider publicKey={publicKey} urlEndpoint={urlEndpoint} authenticator={authentificator}>
