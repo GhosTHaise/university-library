@@ -1,8 +1,13 @@
 import BookList from "@/components/bookList";
 import BookOverview from "@/components/bookOverview";
 import { sampleBooks } from "@/constants";
+import { db } from "@/database/drizzle";
+import { users } from "@/database/schema";
 
-const Home = () => {
+const Home = async () => {
+  const result = await db.select().from(users);
+
+  console.log(JSON.stringify(result, null , 2))
   return (
     <>
       <BookOverview
