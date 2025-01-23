@@ -17,6 +17,8 @@ import { Input } from './ui/input'
 import Link from 'next/link'
 import { FIELD_NAMES, FIELD_TYPES } from '@/constants'
 import ImageUpload from './imageUpload'
+import { toast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
 
 interface AuthFormProps<T extends FieldValues> {
     schema: ZodType<T>,
@@ -26,16 +28,34 @@ interface AuthFormProps<T extends FieldValues> {
 }
 
 const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit }: AuthFormProps<T>) => {
-    const isSignIn = type === "SIGN_IN"
+    const isSignIn = type === "SIGN_IN";
+    const router = useRouter();
+
     const form: UseFormReturn<T> = useForm({
         resolver: zodResolver(schema),
         defaultValues: defaultValues as DefaultValues<T>
-    })
+    });
 
     const handleSubmit: SubmitHandler<T> = async (data) => {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(data)
+        const result = await onSubmit(data);
+
+        if (result.success) {
+            toast({
+                title: "Success",
+                description: isSignIn
+                    ? "You have successfully signed in."
+                    : "You have successfully signed up.",
+            });
+            router.push("/");
+        }
+        
+        else {
+            toast({
+                title: `Error ${isSignIn ? "signing in" : "signing up"}`,
+                description: result.error ?? "An error occurred",
+                variant: "destructive"
+            })
+        }
     }
 
     return (
@@ -69,10 +89,10 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
                                                     <Input
                                                         required
                                                         placeholder="shadcn"
-                                                        type={FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]} 
+                                                        type={FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]}
                                                         {...field}
                                                         className='form-input'
-                                                        />
+                                                    />
                                             }
                                         </FormControl>
                                         <FormMessage />
