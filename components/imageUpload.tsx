@@ -8,7 +8,7 @@ import { useRef, useState } from "react";
 
 const authentificator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/auth/imagekit`,)
+    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`,)
 
     if (!response.ok) {
       const errorText = await response.text();
