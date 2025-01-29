@@ -24,12 +24,13 @@ const getUserState = async (email: string): Promise<UserState> => {
     .limit(1)
 
   if(user.length === 0) return "non-active";
+
   const lastActivityDate = new Date(user[0].lastActivityDate!);
   const now = new Date();
-
   const timeDiff = now.getTime() - lastActivityDate.getTime();
 
-  if(timeDiff > THIRTY_DAYs_IN_MS && timeDiff < THREE_DAYS_IN_MS) return "non-active";
+  if(timeDiff > THIRTY_DAYs_IN_MS && timeDiff <= THREE_DAYS_IN_MS) return "non-active";
+
   return "active";
 }
 
@@ -45,7 +46,7 @@ export const { POST } = serve<InitialData>(async (context) => {
     })
   })
 
-  await context.sleep("wait-for-3-days", THREE_DAYS_IN_MS)
+  await context.sleep("wait-for-3-days", 60 * 60 * 24 * 3);
 
   while (true) {
     const state = await context.run("check-user-state", async () => {
