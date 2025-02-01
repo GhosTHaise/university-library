@@ -1,13 +1,16 @@
 "use client"
 
 import { adminSideBarLinks } from '@/constants'
-import { cn } from '@/lib/utils'
+import { cn, getInitials } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
+import { Avatar } from '../ui/avatar'
+import { AvatarFallback } from '@radix-ui/react-avatar'
+import { Session } from 'next-auth'
 
-const Sidebar = () => {
+const Sidebar = ({ session }: { session: Session }) => {
     const pathname = usePathname()
     return (
         <div className='admin-sidebar'>
@@ -36,8 +39,8 @@ const Sidebar = () => {
                                     <div
                                         className={cn('link', isSelected && "bg-primary-admin shadow-sm")}>
                                         <div className='relative size-5'>
-                                            <Image 
-                                                src={link.img} 
+                                            <Image
+                                                src={link.img}
                                                 alt='icon'
                                                 fill
                                                 className={
@@ -53,6 +56,21 @@ const Sidebar = () => {
                             )
                         })
                     }
+                </div>
+            </div>
+
+            <div className="user">
+                <Avatar>
+                    <AvatarFallback className='bg-amber-100 flex justify-center items-center w-full'>
+                        {
+                            getInitials(session?.user?.name || "IN")
+                        }
+                    </AvatarFallback>
+                </Avatar>
+
+                <div className='flex flex-col max-md:hidden'>
+                    <p className='font-semibold'>{session.user?.name}</p>
+                    <p className='text-light-500 text-xs'>{session.user?.email}</p>
                 </div>
             </div>
         </div>
