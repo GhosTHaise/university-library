@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from '@/components/ui/input'
 import { bookSchema } from '@/lib/validation'
+import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@/components/ui/button'
 
 interface BookFormProps extends Partial<Book> {
     type: 'create' | 'edit'
@@ -188,12 +190,59 @@ const BookForm = ({ type, ...book }: BookFormProps) => {
                                 Book description
                             </FormLabel>
                             <FormControl>
-                                    {/* Color Picker*/}
+                                    <Textarea
+                                        placeholder='Book description'
+                                        { ...field }
+                                        rows={10}
+                                        className='book-form_input'
+                                    />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
+                <FormField
+                    control={form.control}
+                    name={'videoUrl'}
+                    render={({ field }) => (
+                        <FormItem className='flex flex-col gap-1'>
+                            <FormLabel className='text-base font-normal text-dark-500'>
+                                Book Trailer
+                            </FormLabel>
+                            <FormControl>
+                                    {/* File upload */}
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name={'summary'}
+                    render={({ field }) => (
+                        <FormItem className='flex flex-col gap-1'>
+                            <FormLabel className='text-base font-normal text-dark-500'>
+                                Book summary
+                            </FormLabel>
+                            <FormControl>
+                                    <Textarea
+                                        placeholder='Book summary'
+                                        { ...field }
+                                        rows={5}
+                                        className='book-form_input'
+                                    />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <Button 
+                    type='submit'
+                    className='book-form_btn text-white'
+                >
+                    Add Book to Library
+                </Button>
             </form>
         </Form>
     )
