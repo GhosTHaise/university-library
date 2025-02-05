@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input'
 import { bookSchema } from '@/lib/validation'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
+import ImageUpload from '@/components/fileUpload'
 
 interface BookFormProps extends Partial<Book> {
     type: 'create' | 'edit'
@@ -160,7 +161,15 @@ const BookForm = ({ type, ...book }: BookFormProps) => {
                                 Book Image
                             </FormLabel>
                             <FormControl>
-                                    {/* File upload */}
+                                    <ImageUpload
+                                        type='image'
+                                        placeholder='Upload a book cover'
+                                        accept='image/*'
+                                        folder='books/covers'
+                                        variant='light'
+                                        onFileChange={field.onChange}
+                                        //value={field.value}
+                                    />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -210,7 +219,15 @@ const BookForm = ({ type, ...book }: BookFormProps) => {
                                 Book Trailer
                             </FormLabel>
                             <FormControl>
-                                    {/* File upload */}
+                            <ImageUpload
+                                        type='video'
+                                        placeholder='Upload a book trailer'
+                                        accept='video/*'
+                                        folder='books/videos'
+                                        variant='light'
+                                        onFileChange={field.onChange}
+                                        //value={field.value}
+                                    />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
