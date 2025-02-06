@@ -34,12 +34,13 @@ interface ImageUploadProps {
   folder: string;
   accept: string;
   variant: 'dark' | 'light';
+  value?: string;
 }
 
-const ImageUpload = ({ onFileChange, type, placeholder, folder, accept, variant }: ImageUploadProps) => {
+const ImageUpload = ({ onFileChange,value, type, placeholder, folder, accept, variant }: ImageUploadProps) => {
   const { toast } = useToast()
   const ikUploadRef = useRef(null);
-  const [file, setFile] = useState<{ filePath: string } | null>();
+  const [file, setFile] = useState<{ filePath: string } | null>(value ? {filePath: value} : null); 
   const [progress, setProgress] = useState(0);
 
   const styles = {
@@ -141,7 +142,7 @@ const ImageUpload = ({ onFileChange, type, placeholder, folder, accept, variant 
       </button>
 
       {
-        progress > 0 && progress === 100 && (
+        progress > 0 && progress !== 100 && (
           <div className="w-full rounded-full bg-green-200">
             <div
               className="progress"

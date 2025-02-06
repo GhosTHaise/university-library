@@ -41,7 +41,8 @@ const BookForm = ({ type, ...book }: BookFormProps) => {
     });
 
     const onSubmit = async (values: z.infer<typeof bookSchema>) => {
-
+        console.log("🚀 ~ onSubmit ~ values:", values)
+        
     }
 
     return (
