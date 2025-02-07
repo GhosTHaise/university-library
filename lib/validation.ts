@@ -1,5 +1,4 @@
-import { University } from 'lucide-react'
-import { coerce, z } from 'zod'
+import {  z } from 'zod'
 
 export const signUpSchema = z.object({
     fullName : z.string().min(3),
