@@ -1,5 +1,5 @@
 declare interface Book {
-    id : number
+    id : string;
     title: string;
     author: string;
     genre: string;
@@ -11,6 +11,7 @@ declare interface Book {
     coverUrl: string;
     videoUrl : string;
     summary : string;
+    createdAt : Date | null;
     isLoanedBook? : boolean;
 }
 
