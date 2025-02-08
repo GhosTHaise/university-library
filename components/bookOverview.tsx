@@ -5,7 +5,7 @@ import BookCover from './bookCover'
 
 const BookOverview = ({
   title, author, genre, rating, totalCopies, availableCopies, description, coverColor, coverUrl
-}: Book) => {
+}: Book & { userId : string }) => {
   return (
     <section className='book-overview'>
       <div className='flex flex-1 flex-col gap-5'>
