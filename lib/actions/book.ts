@@ -36,7 +36,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
 
         return {
             success: false,
-            message: "An error occured while borrowing the book",
+            message: "An error occurred while borrowing the book",
         }
     }
 }
