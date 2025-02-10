@@ -1,4 +1,4 @@
-import { varchar, integer, text, boolean, pgTable, uuid, pgEnum, date, timestamp } from "drizzle-orm/pg-core";
+import { varchar, integer, text, pgTable, uuid, pgEnum, date, timestamp } from "drizzle-orm/pg-core";
 
 export const STATUS_ENUM = pgEnum('status ', ['PENDING', 'APPROVED', 'REJECTED']);
 export const ROLE_ENUM = pgEnum('role ', ['ADMIN', 'USER']);
@@ -51,3 +51,5 @@ export const borrowRecords = pgTable("borrow_records", {
     status: BORROW_STATUS_ENUM("status").default("BORROWED").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   });
+
+  
